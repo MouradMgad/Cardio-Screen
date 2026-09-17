@@ -1,0 +1,54 @@
+{
+  "binary_classifier_real_ground_truth": {
+    "test_n": 486,
+    "accuracy": 0.9362139917695473,
+    "precision": 0.7931034482758621,
+    "recall_sensitivity": 0.9292929292929293,
+    "specificity": 0.937984496124031,
+    "roc_auc": 0.9751259363662464
+  },
+  "pattern_classifier_held_out_checks": {
+    "held_out_abnormal_n": 99,
+    "murmur_like_n": 55,
+    "rhythm_timing_like_n": 44,
+    "mean_confidence": 0.6630420118069057,
+    "confidence_at_least_70_percent_fraction": 0.3434343434343434,
+    "bootstrap_calibration_agreement_mean": 0.9765656565656564,
+    "bootstrap_calibration_agreement_95pct_interval": [
+      0.9393939393939394,
+      1.0
+    ],
+    "small_feature_perturbation_agreement_mean": 0.9488215488215487,
+    "small_feature_perturbation_agreement_min": 0.9191919191919192,
+    "source_pattern_distribution": {
+      "training-a": {
+        "n": 44,
+        "murmur_like_fraction": 0.5
+      },
+      "training-b": {
+        "n": 15,
+        "murmur_like_fraction": 0.2
+      },
+      "training-c": {
+        "n": 4,
+        "murmur_like_fraction": 0.25
+      },
+      "training-d": {
+        "n": 4,
+        "murmur_like_fraction": 0.5
+      },
+      "training-e": {
+        "n": 27,
+        "murmur_like_fraction": 0.8148148148148148
+      },
+      "training-f": {
+        "n": 5,
+        "murmur_like_fraction": 1.0
+      }
+    }
+  },
+  "validity_statement": {
+    "accuracy_precision_recall_available": false,
+    "reason": "The PhysioNet 2016 records provide normal/abnormal ground truth but no record-level labels for murmur-like versus rhythm/timing-like patterns. Stability is not diagnostic accuracy."
+  }
+}

@@ -1,0 +1,22 @@
+.venv/
+.uv-cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+work/report_charts_bee/
+.chart-data-*/
+.poster_build/
+.codex-finalizer-poster/
+
+# Recreated locally; too large or machine-specific for GitHub.
+work/data/
+work/python_packages/
+work/*_qa*/
+work/report_charts/
+work/report_render/
+work/paper_media/
+work/fontlist-*.json
+
+# Local build leftovers.
+*.tmp
+*.log

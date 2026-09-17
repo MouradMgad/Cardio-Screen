@@ -1,0 +1,63 @@
+{
+  "dataset": {
+    "total": 3240,
+    "train": 2268,
+    "validation": 486,
+    "test": 486,
+    "positive_rate": 0.2052469135802469,
+    "sources": {
+      "training-e": 2141,
+      "training-b": 490,
+      "training-a": 409,
+      "training-f": 114,
+      "training-d": 55,
+      "training-c": 31
+    }
+  },
+  "validation": {
+    "threshold": 0.37999999999999995,
+    "n": 486,
+    "accuracy": 0.9218106995884774,
+    "balanced_accuracy": 0.8989119170984456,
+    "precision": 0.7818181818181819,
+    "recall_sensitivity": 0.86,
+    "specificity": 0.9378238341968912,
+    "f1": 0.819047619047619,
+    "roc_auc": 0.9699222797927461,
+    "average_precision": 0.890932582789059,
+    "brier": 0.06037269674604315,
+    "confusion_matrix": [
+      [
+        362,
+        24
+      ],
+      [
+        14,
+        86
+      ]
+    ]
+  },
+  "test": {
+    "threshold": 0.37999999999999995,
+    "n": 486,
+    "accuracy": 0.9259259259259259,
+    "balanced_accuracy": 0.9046276720695325,
+    "precision": 0.7889908256880734,
+    "recall_sensitivity": 0.8686868686868687,
+    "specificity": 0.9405684754521964,
+    "f1": 0.8269230769230769,
+    "roc_auc": 0.9668780831571528,
+    "average_precision": 0.8451162824262665,
+    "brier": 0.06142134649813246,
+    "confusion_matrix": [
+      [
+        364,
+        23
+      ],
+      [
+        13,
+        86
+      ]
+    ]
+  }
+}

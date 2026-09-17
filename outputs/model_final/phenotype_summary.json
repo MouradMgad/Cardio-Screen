@@ -1,0 +1,11 @@
+{
+  "calibration_records": 466,
+  "training_records_total": 2268,
+  "pattern_counts": {
+    "Murmur-like acoustic pattern": 252,
+    "Rhythm/timing-like acoustic pattern": 214
+  },
+  "mean_pattern_confidence": 0.6753991011219752,
+  "important_note": "Descriptive acoustic pattern only. The PhysioNet 2016 records do not have record-level disease, murmur, S1/S2, or auscultation-position labels.",
+  "accuracy_precision_recall": "Not computable without subtype ground-truth labels."
+}
