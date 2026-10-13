@@ -1,6 +1,6 @@
 # CardioScreen: CPU-first abnormal heart-sound screening
 
-Prepared by Mourad Mohamed Gad.
+Prepared by Mourad Mohamed Gad
 
 CardioScreen is a reproducible research prototype for binary screening of normal versus
 abnormal phonocardiogram (PCG) recordings. It uses the open PhysioNet/CinC 2016 heart-sound
