@@ -1,107 +1,107 @@
-# CardioScreen: CPU-first abnormal heart-sound screening
+# CardioScreen — AI-Based Heart-Sound Screening
 
-Prepared by Mourad Mohamed Gad.
+**A machine learning research project for classifying normal and abnormal heart sounds from digital stethoscope recordings.**
 
-CardioScreen is a reproducible research prototype for binary screening of normal versus
-abnormal phonocardiogram (PCG) recordings. It uses the open PhysioNet/CinC 2016 heart-sound
-dataset and an efficient ensemble of engineered audio representations and classical machine
-learning models.
+CardioScreen is a research prototype built using the [PhysioNet/CinC 2016 heart-sound dataset](https://physionet.org/content/challenge-2016/1.0.0/). It combines audio signal processing, feature engineering, and ensemble learning to analyze phonocardiogram (PCG) recordings and identify recordings that may require expert review.
 
-When a recording passes the high-confidence abnormal threshold, a second stage now reports
-one of two **descriptive acoustic patterns**:
+The project includes a trained classification model, a recording-upload interface, and a reproducible training pipeline.
 
-- Murmur-like acoustic pattern: broad, noise-like frequency energy is dominant.
-- Rhythm/timing-like acoustic pattern: irregular cycle timing is dominant.
+> **Research use only.** CardioScreen is not a medical device and must not be used to diagnose medical conditions.
 
-These are not disease diagnoses. The PhysioNet 2016 training records do not contain reliable
-record-level disease, murmur, S1/S2, or stethoscope-position labels, so accuracy, precision,
-and recall cannot honestly be calculated for these two pattern names.
+## Key Results
 
-### Second-stage validation
+Evaluation on 486 held-out recordings:
 
-On 99 held-out recordings that have genuine abnormal labels, the descriptive stage produced
-55 murmur-like and 44 rhythm/timing-like results. Its mean agreement across 200 bootstrap
-recalibrations was 97.7%, and mean agreement after small feature perturbations was 94.9%.
-These numbers measure stability, not medical correctness. Pattern proportions also varied
-substantially between source databases, so equipment and collection conditions may influence
-the second-stage result. See `outputs/model_final/phenotype_validation.json`.
+| Metric | Result |
+|---|---:|
+| Accuracy | 93.6% |
+| AUROC | 0.975 |
+| Sensitivity | 92.9% |
+| Specificity | 93.8% |
+| Precision | 79.3% |
 
-> Research use only. This project is not a medical device and does not provide a diagnosis.
+### Confidence-Aware Screening
 
-## Research question
+Instead of forcing a classification for every recording, CardioScreen uses probability thresholds to produce three outcomes:
 
-Can a fast CPU-trained ensemble distinguish abnormal from normal digital-stethoscope
-recordings with strong precision, recall, specificity, and calibration while exposing an
-uncertain result for low-confidence cases?
+- **Likely normal:** Abnormality probability ≤ 0.215
+- **Uncertain:** Probability between 0.215 and 0.825; further review or a new recording is recommended
+- **Abnormal:** Abnormality probability ≥ 0.825; expert review is advised
 
-## Run the finished application
+On decisive predictions, the policy achieved **92.1% precision, 97.2% recall, and 78.6% coverage**. When uncertain and abnormal results both trigger referral, the reported screening sensitivity was 99.0%.
 
-The complete project is this folder. From PowerShell:
+These results describe recording-level benchmark performance, not clinical effectiveness.
+
+## How It Works
+
+1. **Signal preprocessing** — Filters and normalizes heart-sound recordings.
+2. **Feature extraction** — Computes 301 audio features, including MFCCs, spectral characteristics, wavelet-based features, and temporal statistics.
+3. **Machine learning** — Combines Extra Trees and LightGBM models to estimate the probability of an abnormal recording.
+4. **Confidence-based classification** — Uses validation-selected thresholds to distinguish likely normal, uncertain, and abnormal recordings.
+5. **Interactive application** — Allows users to upload WAV recordings and inspect model predictions.
+
+## Acoustic Pattern Exploration
+
+CardioScreen also includes an experimental second stage that assigns descriptive acoustic patterns to abnormal recordings:
+
+- **Murmur-like:** Dominated by broad, noise-like frequency energy.
+- **Rhythm/timing-like:** Dominated by irregular cycle timing.
+
+In a validation set of 99 recordings with abnormal labels, the stage showed 97.7% mean agreement across bootstrap recalibrations and 94.9% mean agreement under small feature perturbations.
+
+These measurements reflect prediction stability, **not medical accuracy**. The patterns are exploratory acoustic descriptions, not diagnoses.
+
+## Run the Application
+
+From PowerShell, navigate to the project directory and run:
 
 ```powershell
-cd "C:\Users\0\Downloads\new work"
 .\run_app.ps1
 ```
 
-Then open `http://127.0.0.1:7860` and upload a WAV recording. The trained model is already
-stored in `outputs/model_final`, so training is not required before using the application.
+Then open:
 
-If the supplied Python environment is unavailable, run `.\setup.ps1` once to create a local
-virtual environment and install the packages.
+http://127.0.0.1:7860
 
-## Reproduce training
+Upload a WAV recording to test the trained model. The existing model artifacts are stored in `outputs/model_final`, so retraining is not required to run the application.
 
-1. Download `training.zip` from the official PhysioNet/CinC 2016 page.
-2. Extract it below `work/data/training` so the `training-a` through `training-f` folders
-   and their `REFERENCE.csv` files are discoverable.
-3. Run `.\setup.ps1` if the dependencies have not already been installed.
-4. Run `.\run_pipeline.ps1` from PowerShell. It uses the existing feature cache for a fast
-   retraining run.
-5. Run `.\run_pipeline.ps1 -ReextractFeatures` to rebuild all 301 features from every WAV
-   file before training.
+If the required Python environment is unavailable, run:
 
-The pipeline checkpoints extracted features record by record, so interrupted extraction can
-resume without discarding completed work. Final artifacts are written to `outputs/model_final`.
+```powershell
+.\setup.ps1
+```
 
-## Final held-out result
+## Reproduce the Results
 
-The forced binary model achieved 93.6% accuracy, 92.9% recall, 93.8% specificity, 79.3%
-precision, and 0.975 AUROC on 486 held-out recordings. Because a forced answer did not meet
-the precision target, the final validation-locked policy uses three outcomes:
+1. Download the training data from the [official PhysioNet/CinC 2016 dataset](https://physionet.org/content/challenge-2016/1.0.0/).
+2. Extract the data into `work/data/training`, preserving the dataset folders and reference files.
+3. Install the dependencies using `.\setup.ps1`, if necessary.
+4. Run the training pipeline:
 
-- Likely normal: abnormality probability at or below 0.215.
-- Uncertain / refer or record again: probability between 0.215 and 0.825.
-- Abnormal / expert review advised: probability at or above 0.825.
+   ```powershell
+   .\run_pipeline.ps1
+   ```
 
-On decisive held-out recordings this policy achieved 92.1% precision, 97.2% recall, 99.1%
-specificity, and 78.6% coverage. If uncertain and abnormal results both trigger referral,
-screening sensitivity was 99.0%. These are recording-level benchmark results, not clinical
-validation.
+5. To rebuild the feature cache from the WAV recordings, run:
 
-## Method summary
+   ```powershell
+   .\run_pipeline.ps1 -ReextractFeatures
+   ```
 
-- Fourth-order 20–800 Hz band-pass filtering and robust amplitude normalization.
-- MFCC, delta-MFCC, spectral contrast, centroid, bandwidth, roll-off, flatness, energy,
-  zero-crossing, duration, clipping, and amplitude-distribution features.
-- Mean, standard deviation, median, 10th percentile, and 90th percentile temporal summaries.
-- Stratification jointly by source database and class for 70/15/15 development splits.
-- Final 3:1 probability blend of class-balanced Extra Trees and LightGBM, selected after
-  comparing five candidate models on the validation split.
-- Classification threshold chosen once on validation F1 and applied unchanged to the test set.
-- Test reporting includes precision, recall/sensitivity, specificity, F1, balanced accuracy,
-  AUROC, average precision, Brier score, confusion matrix, and per-record predictions.
+The pipeline saves extracted features and model artifacts under the project directories, allowing training to resume after interrupted feature extraction.
 
-## Important limitation
+## Limitations
 
-The released training collection does not provide reliable patient identifiers across every
-source. The primary split therefore stratifies by source and class at recording level. This
-can overestimate patient-level generalization if one patient contributed multiple recordings.
-Results must be described as a recording-level benchmark, not clinical validation. Source-wise
-robustness and external patient-level validation are recommended before any clinical use.
+- The evaluation uses recording-level splits; reliable patient identifiers are not available across all source databases. Performance may therefore overestimate generalization to unseen patients.
+- The secondary acoustic-pattern classifier has not been validated against reliable clinical pattern labels.
+- Independent external validation and patient-level evaluation are needed before considering any clinical application.
 
-## Dataset citation
+CardioScreen is intended for research and experimentation in biomedical signal processing and machine learning.
 
-Liu C, Springer D, Li Q, et al. An open access database for the evaluation of heart sound
-algorithms. *Physiological Measurement*. 2016;37(12):2181–2213.
+## Dataset Reference
 
-Dataset: https://physionet.org/content/challenge-2016/1.0.0/
+Liu C, Springer D, Li Q, et al. *An open access database for the evaluation of heart sound algorithms.* Physiological Measurement. 2016;37(12):2181–2213.
+
+Dataset: [PhysioNet/CinC Challenge 2016](https://physionet.org/content/challenge-2016/1.0.0/)
+
+**Author:** Mourad Mohamed Gad
