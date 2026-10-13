@@ -1,0 +1,261 @@
+{
+  "models": {
+    "whole_recording": {
+      "Aortic stenosis": {
+        "patients": 108,
+        "positive_patients": 37,
+        "auroc": 0.9078797106966121,
+        "auroc_95pct_patient_bootstrap": [
+          0.8509532103305546,
+          0.9514900877048338
+        ],
+        "average_precision": 0.8282630860160705,
+        "average_precision_95pct_patient_bootstrap": [
+          0.7002220614399465,
+          0.9246897026502122
+        ],
+        "brier": 0.1577650750706283
+      },
+      "Aortic regurgitation": {
+        "patients": 108,
+        "positive_patients": 43,
+        "auroc": 0.7474060822898031,
+        "auroc_95pct_patient_bootstrap": [
+          0.6649439070225003,
+          0.842865323648272
+        ],
+        "average_precision": 0.6242437764566144,
+        "average_precision_95pct_patient_bootstrap": [
+          0.4928149632473983,
+          0.7723101356579619
+        ],
+        "brier": 0.21614974278397106
+      },
+      "Mitral regurgitation": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.7154135338345865,
+        "auroc_95pct_patient_bootstrap": [
+          0.612791339651582,
+          0.8090180835128783
+        ],
+        "average_precision": 0.519881219342699,
+        "average_precision_95pct_patient_bootstrap": [
+          0.39195973000568124,
+          0.6815063355940812
+        ],
+        "brier": 0.21040907522231383
+      },
+      "Mitral stenosis": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.6932330827067669,
+        "auroc_95pct_patient_bootstrap": [
+          0.5906253566241312,
+          0.7992105710927313
+        ],
+        "average_precision": 0.5539357745349515,
+        "average_precision_95pct_patient_bootstrap": [
+          0.42136383925891846,
+          0.7183034161758244
+        ],
+        "brier": 0.21014484416770585
+      }
+    },
+    "phase_unconstrained": {
+      "Aortic stenosis": {
+        "patients": 108,
+        "positive_patients": 37,
+        "auroc": 0.9276741530262657,
+        "auroc_95pct_patient_bootstrap": [
+          0.8751183215352523,
+          0.9719562147035367
+        ],
+        "average_precision": 0.8811194386386447,
+        "average_precision_95pct_patient_bootstrap": [
+          0.7801860900071993,
+          0.9513859222316317
+        ],
+        "brier": 0.14193797991872573
+      },
+      "Aortic regurgitation": {
+        "patients": 108,
+        "positive_patients": 43,
+        "auroc": 0.7874776386404293,
+        "auroc_95pct_patient_bootstrap": [
+          0.7031860902255638,
+          0.864915896124336
+        ],
+        "average_precision": 0.7008374964970202,
+        "average_precision_95pct_patient_bootstrap": [
+          0.5699421535531288,
+          0.8187756954513424
+        ],
+        "brier": 0.2035305739713612
+      },
+      "Mitral regurgitation": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.6943609022556391,
+        "auroc_95pct_patient_bootstrap": [
+          0.5998026315789473,
+          0.783929395945241
+        ],
+        "average_precision": 0.4886502274541,
+        "average_precision_95pct_patient_bootstrap": [
+          0.3714075411585087,
+          0.6522483914281922
+        ],
+        "brier": 0.21416818396059562
+      },
+      "Mitral stenosis": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.6770676691729324,
+        "auroc_95pct_patient_bootstrap": [
+          0.574030072325847,
+          0.7659313603821248
+        ],
+        "average_precision": 0.5095237283618085,
+        "average_precision_95pct_patient_bootstrap": [
+          0.36719201536683654,
+          0.682779802753804
+        ],
+        "brier": 0.21191784735677568
+      }
+    },
+    "phase_constrained": {
+      "Aortic stenosis": {
+        "patients": 108,
+        "positive_patients": 37,
+        "auroc": 0.9265321659687856,
+        "auroc_95pct_patient_bootstrap": [
+          0.8677372224549643,
+          0.9721608527131783
+        ],
+        "average_precision": 0.8817621197612548,
+        "average_precision_95pct_patient_bootstrap": [
+          0.7839807605275545,
+          0.9534271506333912
+        ],
+        "brier": 0.14032282496818635
+      },
+      "Aortic regurgitation": {
+        "patients": 108,
+        "positive_patients": 43,
+        "auroc": 0.7939177101967799,
+        "auroc_95pct_patient_bootstrap": [
+          0.7022092685758514,
+          0.8704264414098973
+        ],
+        "average_precision": 0.7099403379975887,
+        "average_precision_95pct_patient_bootstrap": [
+          0.5806163657732459,
+          0.8286084965933832
+        ],
+        "brier": 0.20214153081641978
+      },
+      "Mitral regurgitation": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.6977443609022556,
+        "auroc_95pct_patient_bootstrap": [
+          0.6053463411387471,
+          0.7842549747254929
+        ],
+        "average_precision": 0.5080017730089311,
+        "average_precision_95pct_patient_bootstrap": [
+          0.3841224579800458,
+          0.6759410493481082
+        ],
+        "brier": 0.21375232984909256
+      },
+      "Mitral stenosis": {
+        "patients": 108,
+        "positive_patients": 38,
+        "auroc": 0.6830827067669174,
+        "auroc_95pct_patient_bootstrap": [
+          0.5800843968505199,
+          0.7800485821795975
+        ],
+        "average_precision": 0.5158273717894566,
+        "average_precision_95pct_patient_bootstrap": [
+          0.37434347917514366,
+          0.6856422505910771
+        ],
+        "brier": 0.21161688031552878
+      }
+    }
+  },
+  "counterfactual_phase_test": {
+    "Aortic stenosis": {
+      "positive_patients": 37,
+      "mean_probability_drop_masking_expected_phase": 0.12865105931377674,
+      "mean_probability_drop_masking_other_phase": 0.06790869525737535
+    },
+    "Aortic regurgitation": {
+      "positive_patients": 43,
+      "mean_probability_drop_masking_expected_phase": 0.06933856999166756,
+      "mean_probability_drop_masking_other_phase": 0.07110112381062042
+    },
+    "Mitral regurgitation": {
+      "positive_patients": 38,
+      "mean_probability_drop_masking_expected_phase": 0.1262523807307398,
+      "mean_probability_drop_masking_other_phase": 0.09966240679399013
+    },
+    "Mitral stenosis": {
+      "positive_patients": 38,
+      "mean_probability_drop_masking_expected_phase": 0.027541264893252693,
+      "mean_probability_drop_masking_other_phase": 0.11951170940752594
+    }
+  },
+  "dataset": "BMD-HS",
+  "records": 864,
+  "patients": 108,
+  "evaluation": "Five-fold patient-grouped out-of-fold evaluation; eight recordings aggregated per patient.",
+  "segmentation_source": {
+    "source": "CirCor DigiScope 1.0.3",
+    "recordings_used": 398,
+    "train_frames": 63373,
+    "test_frames": 16627,
+    "held_out_subject_balanced_accuracy": 0.5480829829753058,
+    "confusion_matrix": [
+      [
+        2203,
+        465,
+        1199,
+        346
+      ],
+      [
+        253,
+        2250,
+        288,
+        1527
+      ],
+      [
+        917,
+        634,
+        2334,
+        285
+      ],
+      [
+        227,
+        1184,
+        204,
+        2311
+      ]
+    ],
+    "phases": [
+      "s1",
+      "systole",
+      "s2",
+      "diastole"
+    ],
+    "note": "Frame metric before cyclic decoding; transferred BMD boundaries remain inferred."
+  },
+  "limitations": [
+    "Small, single-site disease dataset.",
+    "BMD cardiac phases are inferred by a segmenter transferred from pediatric CirCor data.",
+    "No external disease-labelled cohort was available for independent validation."
+  ]
+}

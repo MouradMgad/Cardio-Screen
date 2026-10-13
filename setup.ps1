@@ -3,7 +3,7 @@ $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $VenvDirectory = Join-Path $ProjectRoot ".venv"
 $VenvPython = Join-Path $VenvDirectory "Scripts\python.exe"
 $UvCommand = Get-Command uv -ErrorAction SilentlyContinue
-$BundledPython = "C:\Users\0\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$BundledPython = Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 
 if (-not (Test-Path -LiteralPath $VenvPython)) {
     if ($UvCommand) {
@@ -13,6 +13,8 @@ if (-not (Test-Path -LiteralPath $VenvPython)) {
         } else {
             & $UvCommand.Source venv $VenvDirectory
         }
+    } elseif (Test-Path -LiteralPath $BundledPython) {
+        & $BundledPython -m venv $VenvDirectory
     } else {
         $PyLauncher = Get-Command py -ErrorAction SilentlyContinue
         if ($PyLauncher) {

@@ -1,0 +1,69 @@
+# Project file guide
+
+This guide explains what belongs in the GitHub project and what is generated locally.
+
+## Root commands
+
+- `setup.ps1` creates `.venv` and installs the Python packages.
+- `run_app.ps1` starts the local Flask application at `http://127.0.0.1:7860`.
+- `run_pipeline.ps1` reproduces the PhysioNet abnormal-screening pipeline.
+- `run_research.ps1` reproduces the S1/S2-aware valvular-disease research experiment.
+
+## Application
+
+- `app.py` receives a WAV upload, extracts features, loads the saved model, and returns
+  likely normal, uncertain, or likely abnormal. High-confidence abnormal recordings also
+  receive descriptive acoustic and phase-aware research outputs when artifacts are present.
+- `templates/index.html` is the web page shown by Flask.
+
+## Core package
+
+- `src/heart_sound/dataset.py` discovers PhysioNet/CinC source folders and reads labels.
+- `src/heart_sound/features.py` converts audio to mono, resamples it to 2 kHz, filters and
+  normalizes it, then calculates whole-recording features.
+- `src/heart_sound/phenotypes.py` calculates murmur-like and rhythm/timing-like descriptive
+  abnormal-pattern scores.
+- `src/heart_sound/phases.py` performs S1/systole/S2/diastole decoding and phase-specific
+  feature extraction.
+
+## Training and evaluation scripts
+
+- `scripts/extract_features.py` builds the PhysioNet feature cache.
+- `scripts/tune.py` selects and trains the binary abnormal-screening ensemble.
+- `scripts/selective_eval.py` chooses validation-locked selective thresholds.
+- `scripts/train_phenotype.py` calibrates the descriptive abnormal-pattern stage.
+- `scripts/evaluate_phenotype.py` evaluates second-stage stability and source dependence.
+- `scripts/train_phase_segmenter.py` trains the compact cardiac-phase segmenter from CirCor.
+- `scripts/run_phase_research.py` runs the patient-grouped disease experiment and
+  counterfactual masking audit.
+- `scripts/download_circor_subset.py` creates a reproducible CirCor subset for phase training.
+- `scripts/build_report.py` builds the legacy report from saved metrics.
+
+## Tests
+
+- `tests/smoke_test.py` checks saved predictions and example decision categories.
+- `tests/test_phenotypes.py` verifies the descriptive abnormal-pattern stage.
+- `tests/test_phases.py` verifies cyclic phase decoding and non-overlapping phase masks.
+- `tests/test_phase_research.py` checks phase-research output integrity.
+
+## Documentation
+
+- `README.md` is the main GitHub-facing project overview.
+- `docs/DATASET.md` documents dataset provenance and citation requirements.
+- `docs/RESEARCH_DIRECTION.md` describes the research problem and proposed solution.
+- `docs/PHASE_RESEARCH_RESULTS.md` reports the completed phase-aware experiment.
+- `docs/PROJECT_FILES.md` is this file.
+
+## Generated local material
+
+The following paths are intentionally not part of the clean GitHub source surface:
+
+- `.venv/` and `.uv-cache/`: local Python environments and dependency caches.
+- `work/data/`: downloaded datasets.
+- `work/*.csv` and `work/*.json`: local feature caches and run logs.
+- `outputs/**/*.joblib` and `outputs/**/*.csv`: trained binary models and predictions.
+- `local_artifacts/`: archived poster drafts, old zip packages, duplicate packaged copies,
+  and other generated deliverables removed from the main project surface.
+
+If a trained model must be shared publicly, publish it through a GitHub Release or Git LFS
+instead of committing large binary artifacts directly into the main source tree.

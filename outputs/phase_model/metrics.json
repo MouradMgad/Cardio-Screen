@@ -1,0 +1,40 @@
+{
+  "source": "CirCor DigiScope 1.0.3",
+  "recordings_used": 398,
+  "train_frames": 63373,
+  "test_frames": 16627,
+  "held_out_subject_balanced_accuracy": 0.5480829829753058,
+  "confusion_matrix": [
+    [
+      2203,
+      465,
+      1199,
+      346
+    ],
+    [
+      253,
+      2250,
+      288,
+      1527
+    ],
+    [
+      917,
+      634,
+      2334,
+      285
+    ],
+    [
+      227,
+      1184,
+      204,
+      2311
+    ]
+  ],
+  "phases": [
+    "s1",
+    "systole",
+    "s2",
+    "diastole"
+  ],
+  "note": "Frame metric before cyclic decoding; transferred BMD boundaries remain inferred."
+}

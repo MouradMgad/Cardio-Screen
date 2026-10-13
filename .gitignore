@@ -1,22 +1,35 @@
+# Python and local environments
 .venv/
 .uv-cache/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-work/report_charts_bee/
-.chart-data-*/
-.poster_build/
-.codex-finalizer-poster/
 
-# Recreated locally; too large or machine-specific for GitHub.
+# Local datasets, downloaded packages, and feature caches
 work/data/
 work/python_packages/
+work/*.csv
+work/*.json
+work/phase_research_features/
 work/*_qa*/
-work/report_charts/
+work/report_charts*/
 work/report_render/
 work/paper_media/
 work/fontlist-*.json
 
-# Local build leftovers.
+# Local exports and archived generated deliverables
+local_artifacts/
+*.zip
+*.pptx
+
+# Generated model and evaluation artifacts.
+# Keep these local or publish them through releases / Git LFS if needed.
+outputs/**/*.joblib
+outputs/**/*.csv
+
+# Build leftovers
+.chart-data-*/
+.poster_build/
+.codex-finalizer-poster/
 *.tmp
 *.log

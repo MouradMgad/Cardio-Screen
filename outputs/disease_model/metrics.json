@@ -1,0 +1,32 @@
+{
+  "dataset": "BMD-HS",
+  "dataset_license": "CC BY-NC-ND 4.0",
+  "records_used": 864,
+  "labelled_patients": 108,
+  "train_patients": 81,
+  "test_patients": 27,
+  "evaluation": "One representative recording per held-out patient; no patient leakage.",
+  "metrics": {
+    "Aortic stenosis": {
+      "test_positive_patients": 10,
+      "auroc": 0.9235294117647058,
+      "average_precision": 0.8907142857142857
+    },
+    "Aortic regurgitation": {
+      "test_positive_patients": 11,
+      "auroc": 0.5511363636363636,
+      "average_precision": 0.469786823396449
+    },
+    "Mitral regurgitation": {
+      "test_positive_patients": 12,
+      "auroc": 0.7,
+      "average_precision": 0.6178354053354053
+    },
+    "Mitral stenosis": {
+      "test_positive_patients": 14,
+      "auroc": 0.8516483516483516,
+      "average_precision": 0.8783730158730159
+    }
+  },
+  "limitation": "Research only: small single-site dataset; not a diagnosis or clinical decision tool."
+}

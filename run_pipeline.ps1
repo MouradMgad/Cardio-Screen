@@ -26,7 +26,7 @@ $env:LOKY_MAX_CPU_COUNT = "8"
 $DataDirectory = Join-Path $ProjectRoot "work\data\training"
 $FeatureFile = Join-Path $ProjectRoot "work\features_v2.csv"
 if (-not (Test-Path -LiteralPath $DataDirectory)) {
-    throw "Dataset not found at $DataDirectory. See DATASET.md."
+    throw "Dataset not found at $DataDirectory. See docs\DATASET.md."
 }
 
 if ($ReextractFeatures -or -not (Test-Path -LiteralPath $FeatureFile)) {
