@@ -1,9 +1,17 @@
-# CardioScreen: CPU-first abnormal heart-sound screening
+# CardioScreen: heart-sound screening research prototype
+
+[![CI](https://github.com/MouradMgad/Cardio-Screen/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MouradMgad/Cardio-Screen/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.6%2B-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
 
 CardioScreen is a reproducible research prototype for binary screening of normal versus
 abnormal phonocardiogram (PCG) recordings. It uses the open PhysioNet/CinC 2016 heart-sound
-dataset and an efficient ensemble of engineered audio representations and classical machine
+dataset and an ensemble of engineered audio representations and classical machine
 learning models.
+
+**Research use only.** CardioScreen is not a medical device and does not provide a diagnosis.
+Results are recording-level benchmark estimates, not evidence of clinical validity.
 
 When a recording passes the high-confidence abnormal threshold, a second stage now reports
 one of two **descriptive acoustic patterns**:
@@ -24,28 +32,41 @@ These numbers measure stability, not medical correctness. Pattern proportions al
 substantially between source databases, so equipment and collection conditions may influence
 the second-stage result. See `outputs/model_final/phenotype_validation.json`.
 
-> Research use only. This project is not a medical device and does not provide a diagnosis.
-
 ## Research question
 
-Can a fast CPU-trained ensemble distinguish abnormal from normal digital-stethoscope
-recordings with strong precision, recall, specificity, and calibration while exposing an
-uncertain result for low-confidence cases?
+Can an ensemble distinguish abnormal from normal digital-stethoscope recordings and identify
+low-confidence cases for review?
 
 ## Run the finished application
 
-The complete project is this folder. From PowerShell:
+Clone the repository, then run these commands in PowerShell from the project folder:
 
 ```powershell
-cd "C:\Users\0\Downloads\new work"
+git clone https://github.com/MouradMgad/Cardio-Screen.git
+Set-Location Cardio-Screen
+.\setup.ps1
 .\run_app.ps1
 ```
 
-Then open `http://127.0.0.1:7860` and upload a WAV recording. The trained model is already
-stored in `outputs/model_final`, so training is not required before using the application.
+Then open `http://127.0.0.1:7860` and upload a WAV recording. The trained binary model and
+validation outputs are included in `outputs/model_final`, so training is not required to run
+the screening application.
 
-If the supplied Python environment is unavailable, run `.\setup.ps1` once to create a local
-virtual environment and install the packages.
+`.\setup.ps1` creates a local virtual environment and installs the runtime and development
+packages. Python 3.12 is used for continuous integration.
+
+## Quick checks
+
+After running setup, run the source-level test suite and the application smoke test:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe tests\smoke_test.py
+```
+
+The phase-research integration tests are skipped when the generated patient-level artifacts
+are absent; reproduce them first with `.\run_research.ps1`. GitHub Actions runs the lightweight
+unit tests and application smoke test on pushes and pull requests.
 
 ## Reproduce training
 
@@ -60,6 +81,8 @@ virtual environment and install the packages.
 
 The pipeline checkpoints extracted features record by record, so interrupted extraction can
 resume without discarding completed work. Final artifacts are written to `outputs/model_final`.
+The PhysioNet/CinC and CirCor recordings are not included in this repository; see
+[`docs/DATASET.md`](docs/DATASET.md) for sources, expected paths, and citation requirements.
 
 ## Final held-out result
 
@@ -103,3 +126,15 @@ Liu C, Springer D, Li Q, et al. An open access database for the evaluation of he
 algorithms. *Physiological Measurement*. 2016;37(12):2181–2213.
 
 Dataset: https://physionet.org/content/challenge-2016/1.0.0/
+
+## Repository layout
+
+- `app.py`, `templates/`: local WAV-upload demo.
+- `src/heart_sound/`: audio features, data discovery, phase decoding, and descriptive pattern logic.
+- `scripts/`: feature extraction, training, evaluation, and report generation.
+- `tests/`: unit tests, optional research-artifact checks, and application smoke test.
+- `outputs/model_final/`: bundled binary screening model and benchmark summaries.
+- `docs/`: dataset instructions, research results, and project notes.
+
+For bug reports, include the command you ran, Python version, and full error output. Do not
+submit patient-identifiable recordings or sensitive health data as issues.

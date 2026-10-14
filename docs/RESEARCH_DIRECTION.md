@@ -39,8 +39,8 @@ specific gap proposed here is a unified disease-level study that:
 4. evaluates multi-label disease predictions strictly by patient, with uncertainty and
    calibration rather than accuracy alone.
 
-The novelty claim should be phrased conservatively: a literature search did not identify a public
-study combining all four elements on BMD-HS. It should not claim that no related work exists.
+These points describe the planned research scope. They do not establish novelty or clinical
+validity; any literature claims require a systematic, up-to-date review.
 
 ## Main research question
 

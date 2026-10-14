@@ -31,10 +31,10 @@ if (-not (Test-Path -LiteralPath $VenvPython)) {
 
 if ($UvCommand) {
     $env:UV_CACHE_DIR = Join-Path $ProjectRoot ".uv-cache"
-    & $UvCommand.Source pip install --python $VenvPython -r (Join-Path $ProjectRoot "requirements.txt")
+    & $UvCommand.Source pip install --python $VenvPython -r (Join-Path $ProjectRoot "requirements-dev.txt")
 } else {
     & $VenvPython -m pip install --upgrade pip
-    & $VenvPython -m pip install -r (Join-Path $ProjectRoot "requirements.txt")
+    & $VenvPython -m pip install -r (Join-Path $ProjectRoot "requirements-dev.txt")
 }
 if ($LASTEXITCODE -ne 0) {
     throw "Dependency installation failed with exit code $LASTEXITCODE."
